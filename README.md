@@ -25,19 +25,13 @@ This package contains the frameworks collections. It provides replacements for t
 
 ### `jei.simple.Option`
 Jei aims to eliminate `null`s. To do so, it uses a similar approach to Scala, Kotlin and Swift and uses an optional type.
-Since Java 1.8, there exists the type `java.util.Option<T>`. However, the Jei-Alternative `Option` is integrated more neatly into the framework, and is the preffered way to deal with `null`.
+Since Java 1.8, there exists the type `java.util.Optional<T>`. However, the Jei-Alternative `Option` is integrated more neatly into the framework, and is the preffered way to deal with `null`.
 
 __no value__<br>
-```java
-none();
-```
+`none();`
 
 __some value__<br>
-```java
-some(some_value);
-```
+`some(some_value);`
 
 __no or some value__<br>
-```java
-wrap(some_or_none);
-```
+`wrap(some_or_none);`
