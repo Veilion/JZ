@@ -5,10 +5,10 @@ import jei.collections.Table;
 import jei.collections.Tuple.Tuple2;
 import jei.collections.Tuple.Tuple3;
 import jei.functional.Consumer;
+import jei.functional.Predicate;
 import jei.functional.Producer;
 import jei.functional.Sequence;
 import jei.functional.Supplier;
-import jei.simple.Lazy;
 import jei.simple.Option;
 import jei.types.Type;
 
@@ -28,6 +28,16 @@ public class Base
 			consumer.invoke(value);
 		}
 	}
+	protected static <T> Array<T> filter(T[] array, Predicate<T> predicate) {
+		Array<T> result = array();
+		for(T value : array) {
+			if(predicate.invoke(value)) {
+				result.add(value);
+			}
+		}
+		return result;
+	}
+	
 	protected static <T> T create(Supplier<T> producer) {
 		return producer.invoke();
 	}
@@ -42,9 +52,6 @@ public class Base
 	}
 	protected static void call(Sequence closure) {
 		closure.invoke();
-	}
-	protected static <T> Lazy<T> lazy(Supplier<T> supplier) {
-		return $.lazy(supplier);
 	}
 	
 	@SafeVarargs
@@ -77,7 +84,7 @@ public class Base
 		return $.hash(object);
 	}
 	
-	protected static <T> Option<T> wrap(T value) {
+	protected static <T> Option<T> option(T value) {
 		return $.option(value);
 	}
 	protected static <T> Option<T> some(T value) {

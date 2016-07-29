@@ -159,4 +159,14 @@ public abstract class UString extends StaticBase
 		}
 		return string.substring(amount, string.length());
 	}
+	
+	public static String reverse(String string) {
+		return new StringBuilder(string).reverse().toString();
+	}
+	public static String ucFirst(String string) {
+		return Character.toUpperCase(string.charAt(0)) + string.substring(1);
+	}
+	public static String lcFirst(String string) {
+		return Character.toLowerCase(string.charAt(0)) + string.substring(1);
+	}
 }

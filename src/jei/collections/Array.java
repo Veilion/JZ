@@ -17,6 +17,11 @@ public interface Array<T> extends Stream<T>
 	public static <T> Array<T> empty() {
 		return new DefaultArray<>(10);
 	}
+	public static <T> Array<T> from(Iterable<T> iterable) {
+		Array<T> array = new DefaultArray<>(0);
+		array.addAll(iterable);
+		return array;
+	}
 	
 	T get(int index);
 	Array<T> getAll(int... indices);

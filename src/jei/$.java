@@ -7,7 +7,6 @@ import jei.collections.Tuple.Tuple3;
 import jei.error.NullArgumentException;
 import jei.functional.Consumer;
 import jei.functional.Supplier;
-import jei.simple.Lazy;
 import jei.simple.Option;
 import jei.types.Type;
 import jei.utils.UError;
@@ -30,9 +29,6 @@ public abstract class $ extends StaticBase
 	public static <T> T create(Supplier<T> producer) {
 		return producer.invoke();
 	}
-	public static <T> Lazy<T> lazy(Supplier<T> supplier) {
-		return new Lazy<>(supplier);
-	}
 	
 	@SafeVarargs
 	public static <K, V> Table<K, V> table(Tuple2<K, V>... values) {
@@ -45,10 +41,6 @@ public abstract class $ extends StaticBase
 	}
 	public static <T> Array<T> empty(int size) {
 		return Array.withSize(size);
-	}
-	public static Array<Integer> range(int start, int end) {
-		//TODO
-		return null;
 	}
 	
 	public static <A, B> Tuple2<A, B> __(A a, B b) {
