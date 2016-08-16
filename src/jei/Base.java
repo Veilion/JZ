@@ -4,6 +4,7 @@ import jei.collections.Array;
 import jei.collections.Table;
 import jei.collections.Tuple.Tuple2;
 import jei.collections.Tuple.Tuple3;
+import jei.collections.Tuple.Tuple4;
 import jei.functional.Consumer;
 import jei.functional.Predicate;
 import jei.functional.Producer;
@@ -37,6 +38,13 @@ public class Base
 		}
 		return result;
 	}
+	protected static <I, O> Array<O> map(I[] array, Producer<I, O> producer) {
+		Array<O> result = empty(array.length);
+		for(I value : array) {
+			result.add(producer.invoke(value));
+		}
+		return result;
+	}
 	
 	protected static <T> T create(Supplier<T> producer) {
 		return producer.invoke();
@@ -59,11 +67,14 @@ public class Base
 		return Table.of(values);
 	}
 	
-	protected static <A, B> Tuple2<A, B> __(A a, B b) {
-		return $.__(a, b);
+	protected static <A, B> Tuple2<A, B> t(A a, B b) {
+		return $.t(a, b);
 	}
-	protected static <A, B, C> Tuple3<A, B, C> __(A a, B b, C c) {
-		return $.__(a, b, c);
+	protected static <A, B, C> Tuple3<A, B, C> t(A a, B b, C c) {
+		return $.t(a, b, c);
+	}
+	public static <A, B, C, D> Tuple4<A, B, C, D> t(A a, B b, C c, D d) {
+		return $.t(a, b, c, d);
 	}
 	
 	@SafeVarargs
@@ -160,13 +171,13 @@ public class Base
 		return $.unchecked(e);
 	}
 	
-	protected static <T> Class<? extends T> classof(T object) {
+	protected static <T> Class<T> classof(T object) {
 		return $.classof(object);
 	}
-	protected static <T> Type<? extends T> typeof(T object) {
+	protected static <T> Type<T> typeof(T object) {
 		return $.typeof(object);
 	}
-	protected static <T> Type<? extends T> typeby(Class<T> clazz) {
+	protected static <T> Type<T> typeby(Class<T> clazz) {
 		return $.typeby(clazz);
 	}
 	

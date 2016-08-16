@@ -46,7 +46,7 @@ public interface Table<K, V> extends Stream<Table.Entry<K, V>>
 	
 	void clear();
 	
-	static interface Entry<K, V> {
+	interface Entry<K, V> {
 		K getKey();
 		V getValue();
 		V setValue(V value);

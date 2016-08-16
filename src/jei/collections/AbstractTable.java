@@ -2,8 +2,8 @@ package jei.collections;
 
 import java.util.Iterator;
 
+import jei.data.json.JSON;
 import jei.functional.Predicate;
-import jei.json.JSON;
 
 public abstract class AbstractTable<K, V> extends AbstractStream<Table.Entry<K, V>> implements Table<K, V>
 {

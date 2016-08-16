@@ -6,12 +6,12 @@ public abstract class UError extends StaticBase
 {
 	private UError() {}
 	
-	public static RuntimeException unchecked(Exception e) {
+	public static RuntimeException unchecked(Throwable e) {
 		UError.<RuntimeException>throwUnchecked(e);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
-	private static <T extends Exception> void throwUnchecked(Exception e) throws T {
+	private static <T extends Throwable> void throwUnchecked(Throwable e) throws T {
 		throw (T) e;
 	}
 }

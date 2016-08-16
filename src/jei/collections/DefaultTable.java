@@ -37,8 +37,10 @@ class DefaultTable<K, V> extends AbstractTable<K, V>
 		this.table = createTable(this.table.length * 2);
 		this.capacity *= 2;
 		for(Entry<K, V> entry : oldTable) {
-			entry.hash = indexOf(entry.key);
-			indexEntry(entry);
+			if(entry != null) {
+				entry.hash = indexOf(entry.key);
+				indexEntry(entry);	
+			}
 		}
 	}
 	private void indexEntry(Entry<K, V> entry) {

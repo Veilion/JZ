@@ -2,7 +2,7 @@ package jei.simple;
 
 import jei.Base;
 import jei.annotation.NonNull;
-import jei.error.NoValueException;
+import jei.error.NullValueException;
 import jei.functional.Producer;
 import jei.functional.Supplier;
 
@@ -30,9 +30,9 @@ public final class Option<T> extends Base
 		this.value = value;
 	}
 	
-	public T get() throws NoValueException {
+	public T get() throws NullValueException {
 		if(this.value == null) {
-			throw new NoValueException();
+			throw new NullValueException();
 		}
 		return this.value;
 	}
@@ -60,6 +60,12 @@ public final class Option<T> extends Base
 	public T orGet(Supplier<@NonNull T> supplier) {
 		if(this.value == null) {
 			return nonNull(supplier.invoke());
+		}
+		return this.value;
+	}
+	public <X extends Throwable> T orThrow(X error) throws X {
+		if(this.value == null) {
+			throw error;
 		}
 		return this.value;
 	}

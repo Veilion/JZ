@@ -1,32 +1,31 @@
 package jei.collections;
 
 import jei.Base;
+import jei.data.json.JSON;
 import jei.functional.Consumer;
 import jei.functional.Predicate;
 import jei.functional.Producer;
 import jei.functional.Producer2;
-import jei.json.JSON;
 
 public abstract class AbstractStream<T> extends Base implements Stream<T>
 {
 	@Override
-	public Array<T> getWhere(Predicate<T> predicate) {
-		Array<T> results = array();
-		for(T value : this) {
-			if(predicate.invoke(value)) {
-				results.add(value);
-			}
-		}
-		return results;
-	}
-	@Override
-	public boolean hasWhere(Predicate<T> predicate) {
+	public boolean includes(Predicate<T> predicate) {
 		for(T value : this) {
 			if(predicate.invoke(value)) {
 				return true;
 			}
 		}
 		return false;
+	}
+	@Override
+	public boolean matches(Predicate<T> predicate) {
+		for(T value : this) {
+			if(!predicate.invoke(value)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	@Override
 	public int amountWhere(Predicate<T> predicate) {

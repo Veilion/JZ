@@ -33,10 +33,10 @@ public class Wrapper<T> extends Base
 	}
 	@Override
 	public boolean equals(Object object) {
-		if(this == object) {
+		if (this == object) {
 			return true;
 		}
-		if(object instanceof Wrapper) {
+		if (object instanceof Wrapper) {
 			return equals(((Wrapper<?>) object).value, this.value);
 		}
 		return false;

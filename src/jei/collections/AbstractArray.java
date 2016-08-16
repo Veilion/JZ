@@ -2,9 +2,9 @@ package jei.collections;
 
 import java.util.Iterator;
 
-import jei.error.UndefinedIndexException;
+import jei.data.json.JSON;
+import jei.error.UndefinedEntryException;
 import jei.functional.Predicate;
-import jei.json.JSON;
 import jei.simple.Option;
 
 public abstract class AbstractArray<T> extends AbstractStream<T> implements Array<T>
@@ -16,7 +16,7 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 			useIndex = this.count() + index;
 		}  
 		if(useIndex < 0 || useIndex > count - 1) {
-			throw new UndefinedIndexException(useIndex, count * -1, count - 1);
+			throw new UndefinedEntryException(useIndex, count * -1, count - 1);
 		}
 		return useIndex;
 	}
@@ -216,18 +216,41 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 	@Override
 	public T first() {
 		if(this.isEmpty()) {
-			throw new UndefinedIndexException("cannot get the first element of an empty array");
+			throw new UndefinedEntryException("cannot get the first element of an empty array");
 		}
 		return this.get(0);
 	}
 	@Override
 	public T last() {
 		if(this.isEmpty()) {
-			throw new UndefinedIndexException("cannot get the last element of an empty array");
+			throw new UndefinedEntryException("cannot get the last element of an empty array");
 		}
 		return this.get(-1);
 	}
 	
+	@Override
+	public int hashCode() {
+		int hash = 1;
+        for (T element : this) {
+            hash = 31 * hash + hash(element);	
+        }
+        return hash;
+	}
+	@Override
+	public boolean equals(Object object) {
+		if(object instanceof FinalArray) {
+			FinalArray<?> array = (FinalArray<?>) object;
+			if(array.count() == this.count()) {
+				for(int i = 0; i < array.count(); ++i) {
+					if(!equals(array.get(i), this.get(i))) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 	@Override
 	public String toString() {
 		int count = this.count();

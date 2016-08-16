@@ -65,6 +65,15 @@ class DefaultArray<T> extends AbstractArray<T>
 		this.array[this.count - 1] = value;
 	}
 	@Override
+	public void add(int index, T entry) {
+		index = this.validate(index);
+		this.add(null);
+		for(int i = index; i < this.count() - 1; ++i) {
+			this.array[i + 1] = this.array[i];
+		}
+		this.array[index] = entry;
+	}
+	@Override
 	public T remove(int index) {
 		index = this.validate(index);
 		T previous = this.fastGet(index);
@@ -79,5 +88,20 @@ class DefaultArray<T> extends AbstractArray<T>
 	public void clear() {
 		this.count = 0;
 		this.array = new Object[this.initialSize];
+	}
+	
+	@Override
+	public FinalArray<T> readOnly() {
+		return FinalArray.delegate(this);
+	}
+
+	@Override
+	public T[] toNativeArray(Class<T> clazz) {
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) java.lang.reflect.Array.newInstance(clazz, this.count());
+		for(int i = 0; i < array.length; ++i) {
+			array[i] = this.fastGet(i);
+		}
+		return array;
 	}
 }

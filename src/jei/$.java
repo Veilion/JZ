@@ -4,6 +4,7 @@ import jei.collections.Array;
 import jei.collections.Table;
 import jei.collections.Tuple.Tuple2;
 import jei.collections.Tuple.Tuple3;
+import jei.collections.Tuple.Tuple4;
 import jei.error.NullArgumentException;
 import jei.functional.Consumer;
 import jei.functional.Supplier;
@@ -43,11 +44,14 @@ public abstract class $ extends StaticBase
 		return Array.withSize(size);
 	}
 	
-	public static <A, B> Tuple2<A, B> __(A a, B b) {
+	public static <A, B> Tuple2<A, B> t(A a, B b) {
 		return new Tuple2<>(a, b);
 	}
-	public static <A, B, C> Tuple3<A, B, C> __(A a, B b, C c) {
+	public static <A, B, C> Tuple3<A, B, C> t(A a, B b, C c) {
 		return new Tuple3<>(a, b, c);
+	}
+	public static <A, B, C, D> Tuple4<A, B, C, D> t(A a, B b, C c, D d) {
+		return new Tuple4<>(a, b, c, d);
 	}
 	
 	public static boolean equals(Object object1, Object object2) {
@@ -141,17 +145,17 @@ public abstract class $ extends StaticBase
 		return UError.unchecked(e);
 	}
 	
-	public static <T> Class<? extends T> classof(T object) {
+	public static <T> Class<T> classof(T object) {
 		@SuppressWarnings("unchecked")
-		Class<? extends T> clazz = (Class<T>) object.getClass();
+		Class<T> clazz = (Class<T>) object.getClass();
 		return clazz;
 	}
-	public static <T> Type<? extends T> typeof(T object) {
+	public static <T> Type<T> typeof(T object) {
 		@SuppressWarnings("unchecked")
-		Class<? extends T> clazz = (Class<? extends T>) object.getClass();
+		Class<T> clazz = (Class<T>) object.getClass();
 		return Type.forClass(clazz);
 	}
-	public static <T> Type<? extends T> typeby(Class<T> clazz) {
+	public static <T> Type<T> typeby(Class<T> clazz) {
 		return Type.forClass(clazz);
 	}
 }

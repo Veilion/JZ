@@ -1,9 +1,8 @@
 package jei.collections;
 
 import jei.functional.Predicate;
-import jei.simple.Option;
 
-public interface Array<T> extends Stream<T>
+public interface Array<T> extends FinalArray<T>
 {
 	public static <T> Array<T> withSize(int size) {
 		return new DefaultArray<>(size);
@@ -23,11 +22,8 @@ public interface Array<T> extends Stream<T>
 		return array;
 	}
 	
-	T get(int index);
-	Array<T> getAll(int... indices);
-	Array<T> getRange(int start, int end);
-	
 	void add(T entry);
+	void add(int index, T entry);
 	void addAll(T[] entry);
 	void addAll(Iterable<T> entries);
 	
@@ -41,19 +37,12 @@ public interface Array<T> extends Stream<T>
 	boolean remove(T entry);
 	boolean removeWhere(Predicate<T> predicate);
 	
-	int amountOf(T entry);
-	boolean has(T entry);
-
-	Option<Integer> firstIndexOf(T entry);
-	Option<Integer> firstIndexWhere(Predicate<T> predicate);
-	Option<Integer> lastIndexOf(T entry);
-	Option<Integer> lastIndexWhere(Predicate<T> predicate);
-	
-	Option<T> firstWhere(Predicate<T> predicate);
-	Option<T> lastWhere(Predicate<T> predicate);
-	
 	T first();
 	T last();
 	
 	void clear();
+	
+	FinalArray<T> readOnly();
+	
+	T[] toNativeArray(Class<T> clazz);
 }
