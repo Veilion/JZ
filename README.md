@@ -6,12 +6,24 @@ Download the master-branch and compress it into a JAR-File.
 It requires JRE 1.8 or greater.
 
 ## Basics
-When using Jei, you will not use almost no types that come with the standard library.
+When using Jei, you will use almost no types that come with the standard library.
 Instead, their replacements provided by the framework will be used.
 
 ### `jei.Base`
-This class is supposed to be used as base for every new class. Forget about `java.Object`, this is the new standard.
+This class is supposed to be used as base for every new class. Forget about `java.lang.Object`, this is the new standard.
 Every type in Jei extends this class by default. All examples provided in this readme or elsewhere in this repo will assume that you have extended this class.
+
+#### `jei.$`
+If you are unable to extend from this class, or just don't want to do it, you can use the class `jei.$`.
+It contains all pseudo-globals provided by `Base`, but as `public static`-methods.  
+Use either a static import:
+```java
+import static jei.$; 
+```
+or use the class directly:
+```
+jei.$.print(...)
+```
 
 ### `jei.collections`
 This package contains the frameworks collections. It provides replacements for the basic types of the Java Collections Framework.
