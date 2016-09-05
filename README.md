@@ -18,7 +18,7 @@ If you are unable to extend from this class, or just don't want to do it, you ca
 It contains all pseudo-globals provided by `Base`, but as `public static`-methods.  
 Use either a static import:
 ```java
-import static jei.$; 
+import static jei.$.*; 
 ```
 or use the class directly:
 ```
