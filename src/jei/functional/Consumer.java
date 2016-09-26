@@ -1,32 +1,37 @@
 package jei.functional;
 
-import jei.$;
+import jei.StandardLibraryContender;
 
 @FunctionalInterface
-public interface Consumer<T> 
+public interface Consumer<A> extends StandardLibraryContender<java.util.function.Consumer<A>>
 {
-	void unsafeInvoke(T value) throws Exception;
+	public static final Consumer<Object>
+		PASS = it -> {};
 	
-	default void invoke(T value) {
-		try {
-			this.invoke(value);
-		} catch(RuntimeException e) {
-			throw e;
-		} catch(Exception e) {
-			throw $.unchecked(e);
-		}
+	void call(A it);
+	
+	@Override
+	default java.util.function.Consumer<A> java() {
+		return this::call;
 	}
 	
-	default Consumer<T> before(Consumer<T> consumer) {
+	default Consumer<A> before(Consumer<? super A> consumer) {
 		return e -> {
-			this.invoke(e);
-			consumer.invoke(e);
+			this.call(e);
+			consumer.call(e);
 		};
 	}
-	default Consumer<T> after(Consumer<T> consumer) {
+	default Consumer<A> after(Consumer<? super A> consumer) {
 		return e -> {
-			consumer.invoke(e);
-			this.invoke(e);
+			consumer.call(e);
+			this.call(e);
 		};
+	}
+	
+	default Sequence link(Supplier<? extends A> supplier) {
+		return () -> this.call(supplier.call());
+	}
+	default Sequence bind(A value) {
+		return () -> this.call(value);
 	}
 }

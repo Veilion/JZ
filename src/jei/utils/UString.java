@@ -73,7 +73,7 @@ public abstract class UString extends StaticBase
 					if(i != 0) {
 						result.append(',');
 					}
-					result.append(String.format("\n    %" + numLength + "s: ", i)).append(stringify(get.invoke(i)).replace("\n", "\n    "));
+					result.append(String.format("\n    %" + numLength + "s: ", i)).append(stringify(get.call(i)).replace("\n", "\n    "));
 				}
 				return result.append(size > 0 ? "\n}" :"}").toString();
 			} else if(compType.isArray()) {

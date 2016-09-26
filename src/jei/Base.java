@@ -1,184 +1,132 @@
 package jei;
 
-import jei.collections.Array;
-import jei.collections.Table;
-import jei.collections.Tuple.Tuple2;
-import jei.collections.Tuple.Tuple3;
-import jei.collections.Tuple.Tuple4;
-import jei.functional.Consumer;
-import jei.functional.Predicate;
-import jei.functional.Producer;
-import jei.functional.Sequence;
 import jei.functional.Supplier;
+import jei.simple.Computed;
+import jei.simple.Lazy;
 import jei.simple.Option;
 import jei.types.Type;
 
 public class Base 
 {
-	protected static <T> T nonNull(T value) {
-		return $.nonNull(value);
+	protected Base() {}
+	
+	public static <T> Computed<T> compute(Supplier<T> supplier) {
+		return Jei.compute(supplier);
+	}
+	public static <T> Lazy<T> lazy(Supplier<T> supplier) {
+		return Jei.lazy(supplier);
 	}
 	
-	protected static <T> void each(T[] array, Consumer<T> consumer) {
-		for(T value : array) {
-			consumer.invoke(value);
-		}
-	}
-	protected static <T> void each(Iterable<T> iterable, Consumer<T> consumer) {
-		for(T value : iterable) {
-			consumer.invoke(value);
-		}
-	}
-	protected static <T> Array<T> filter(T[] array, Predicate<T> predicate) {
-		Array<T> result = array();
-		for(T value : array) {
-			if(predicate.invoke(value)) {
-				result.add(value);
-			}
-		}
-		return result;
-	}
-	protected static <I, O> Array<O> map(I[] array, Producer<I, O> producer) {
-		Array<O> result = empty(array.length);
-		for(I value : array) {
-			result.add(producer.invoke(value));
-		}
-		return result;
+	public static <T> T create(Supplier<T> supplier) {
+		return Jei.create(supplier);
 	}
 	
-	protected static <T> T create(Supplier<T> producer) {
-		return producer.invoke();
-	}
-	protected static <T> void call(Consumer<T> consumer, T argument) {
-		consumer.invoke(argument);
-	}
-	protected static <T> T call(Supplier<T> supplier) {
-		return supplier.invoke();
-	}
-	protected static <I, O> O call(Producer<I, O> producer, I argument) {
-		return producer.invoke(argument);
-	}
-	protected static void call(Sequence closure) {
-		closure.invoke();
+	public static boolean equals(Object object1, Object object2) {
+		return Jei.equals(object1, object2);
 	}
 	
-	@SafeVarargs
-	protected static <K, V> Table<K, V> table(Tuple2<K, V>... values) {
-		return Table.of(values);
+	public static int hash(Object object) {
+		return Jei.hash(object);
 	}
 	
-	protected static <A, B> Tuple2<A, B> t(A a, B b) {
-		return $.t(a, b);
-	}
-	protected static <A, B, C> Tuple3<A, B, C> t(A a, B b, C c) {
-		return $.t(a, b, c);
-	}
-	public static <A, B, C, D> Tuple4<A, B, C, D> t(A a, B b, C c, D d) {
-		return $.t(a, b, c, d);
+	public static int hashAll(Object... objects) {
+		return Jei.hashAll(objects);
 	}
 	
-	@SafeVarargs
-	protected static <T> Array<T> array(T... values) {
-		return $.array(values);
-	}
-	protected static <T> Array<T> empty(int size) {
-		return $.empty(size);
-	}
-	protected static Array<Integer> range(int start, int end) {
-		return $.range(start, end);
+	public static <T> T nonNull(T value) {
+		return Jei.nonNull(value);
 	}
 	
-	protected static boolean equals(Object object1, Object object2) {
-		return $.equals(object1, object2);
-	}
-	protected static int hash(Object object) {
-		return $.hash(object);
+	public static <T> Option<T> maybe(T value) {
+		return Jei.maybe(value);
 	}
 	
-	protected static <T> Option<T> option(T value) {
-		return $.option(value);
-	}
-	protected static <T> Option<T> some(T value) {
-		return $.some(value);
-	}
-	protected static <T> Option<T> none() {
-		return $.none();
-	}
-	protected static String stringify(Object object) {
-		return $.stringify(object);
-	}
-	protected static String format(String pattern, Object... elements) {
-		return $.format(pattern, elements);
-	}
-	protected static void print(String pattern, Object... elements) {
-		$.print(pattern, elements);
-	}
-	protected static void print(Object output) {
-		$.print(output);
+	public static <T> Option<T> some(T value) {
+		return Jei.some(value);
 	}
 	
-	protected static Byte wrap(byte primitive) {
-		return $.wrap(primitive);
-	}
-	protected static Short wrap(short primitive) {
-		return $.wrap(primitive);
-	}
-	protected static Integer wrap(int primitive) {
-		return $.wrap(primitive);
-	}
-	protected static Long wrap(long primitive) {
-		return $.wrap(primitive);
-	}
-	protected static Float wrap(float primitive) {
-		return $.wrap(primitive);
-	}
-	protected static Double wrap(double primitive) {
-		return $.wrap(primitive);
-	}
-	protected static Character wrap(char primitive) {
-		return $.wrap(primitive);
-	}
-	protected static Boolean wrap(boolean primitive) {
-		return $.wrap(primitive);
+	public static <T> Option<T> none() {
+		return Jei.none();
 	}
 	
-	protected static byte unwrap(Byte wrapper) {
-		return $.unwrap(wrapper);
-	}
-	protected static short unwrap(Short wrapper) {
-		return $.unwrap(wrapper);
-	}
-	protected static int unwrap(Integer wrapper) {
-		return $.unwrap(wrapper);
-	}
-	protected static long unwrap(Long wrapper) {
-		return $.unwrap(wrapper);
-	}
-	protected static float unwrap(Float wrapper) {
-		return $.unwrap(wrapper);
-	}
-	protected static double unwrap(Double wrapper) {
-		return $.unwrap(wrapper);
-	}
-	protected static char unwrap(Character wrapper) {
-		return $.unwrap(wrapper);
-	}
-	protected static boolean unwrap(Boolean wrapper) {
-		return $.unwrap(wrapper);
+	public static String stringify(Object object) {
+		return Jei.stringify(object);
 	}
 	
-	protected static RuntimeException unchecked(Exception e) {
-		return $.unchecked(e);
+	public static String format(String pattern, Object... elements) {
+		return Jei.format(pattern, elements);
 	}
 	
-	protected static <T> Class<T> classof(T object) {
-		return $.classof(object);
+	public static void print(String pattern, Object... elements) {
+		Jei.print(pattern, elements);
 	}
-	protected static <T> Type<T> typeof(T object) {
-		return $.typeof(object);
+	
+	public static void print(Object output) {
+		Jei.print(output);
 	}
-	protected static <T> Type<T> typeby(Class<T> clazz) {
-		return $.typeby(clazz);
+	
+	public static RuntimeException unchecked(Throwable e) {
+		return Jei.unchecked(e);
+	}
+	
+	public static <T> Type<T> typeBy(Class<T> clazz) {
+		return Jei.typeBy(clazz);
+	}
+	public static <T> Type<T> typeOf(T object) {
+		return Jei.typeOf(object);
+	}
+	public static <T> Class<T> classOf(T object) {
+		return Jei.classOf(object);
+	}
+	
+	public static Byte box(byte primitive) {
+		return Jei.box(primitive);
+	}
+	public static Short box(short primitive) {
+		return Jei.box(primitive);
+	}
+	public static Integer box(int primitive) {
+		return Jei.box(primitive);
+	}
+	public static Long box(long primitive) {
+		return Jei.box(primitive);
+	}
+	public static Float box(float primitive) {
+		return Jei.box(primitive);
+	}
+	public static Double box(double primitive) {
+		return Jei.box(primitive);
+	}
+	public static Character box(char primitive) {
+		return Jei.box(primitive);
+	}
+	public static Boolean box(boolean primitive) {
+		return Jei.box(primitive);
+	}
+	
+	public static byte unbox(Byte wrapper) {
+		return Jei.unbox(wrapper);
+	}
+	public static short unbox(Short wrapper) {
+		return Jei.unbox(wrapper);
+	}
+	public static int unbox(Integer wrapper) {
+		return Jei.unbox(wrapper);
+	}
+	public static long unbox(Long wrapper) {
+		return Jei.unbox(wrapper);
+	}
+	public static float unbox(Float wrapper) {
+		return Jei.unbox(wrapper);
+	}
+	public static double unbox(Double wrapper) {
+		return Jei.unbox(wrapper);
+	}
+	public static char unbox(Character wrapper) {
+		return Jei.unbox(wrapper);
+	}
+	public static boolean unbox(Boolean wrapper) {
+		return Jei.unbox(wrapper);
 	}
 	
 	@Override

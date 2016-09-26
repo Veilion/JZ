@@ -4,13 +4,17 @@ import jei.Base;
 
 public class Wrapper<T> extends Base
 {
+	public static <T> Wrapper<T> empty() {
+		return new Wrapper<>(null);
+	}
+	public static <T> Wrapper<T> of(T value) {
+		return new Wrapper<>(value);
+	}
+	
 	private T 
 		value;
 	
-	public Wrapper() {
-		this(null);
-	}
-	public Wrapper(T value) {
+	private Wrapper(T value) {
 		this.value = value;
 	}
 	
@@ -43,6 +47,6 @@ public class Wrapper<T> extends Base
 	}
 	@Override
 	public String toString() {
-		return format("{0}({1})", typeof(this).getName(), value);
+		return format("{0}({1})", typeOf(this).getName(), value);
 	}
 }

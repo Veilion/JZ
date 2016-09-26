@@ -144,7 +144,7 @@ class DefaultTable<K, V> extends AbstractTable<K, V>
 			Entry<K, V> entry = this.table[i];
 			Entry<K, V> last = null;
 			while(entry != null) {
-				if(predicate.invoke(entry)) {
+				if(predicate.call(entry)) {
 					if(last == null) {
 						this.table[i] = entry.next;
 					} else {

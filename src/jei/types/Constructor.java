@@ -30,7 +30,7 @@ public class Constructor<T> extends Invokable
 	}
 	
 	public Type<T> getDeclaringType() {
-		return typeby(this.cst.getDeclaringClass());
+		return typeBy(this.cst.getDeclaringClass());
 	}
 	public T invoke(Object... args) throws IllegalInvocationError {
 		if(args.length != this.params().count()) {
@@ -163,7 +163,7 @@ public class Constructor<T> extends Invokable
 		@Override
 		public String toString() {
 			if (this.string == null) {
-				StringBuilder builder = new StringBuilder(typeof(this).getQualifiedName());
+				StringBuilder builder = new StringBuilder(typeOf(this).getQualifiedName());
 				builder.append('(').append(this.count()).append(") {");
 				for(Constructor<?> cst : this.csts) {
 					builder.append("\n    ").append(cst.toString());

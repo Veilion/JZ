@@ -35,7 +35,7 @@ public abstract class AbstractTable<K, V> extends AbstractStream<Table.Entry<K, 
 	public boolean setWhere(V value, Predicate<Table.Entry<K, V>> predicate) {
 		boolean found = false;
 		for(Table.Entry<K, V> entry : this) {
-			if(predicate.invoke(entry)) {
+			if(predicate.call(entry)) {
 				entry.setValue(value);
 				found = true;
 			}

@@ -57,14 +57,14 @@ public abstract class Invokable extends Base implements Accessable, Note.Streama
 	}
 	public FinalArray<Generic> getGenerics() {
 		if (this.generics == null) {
-			this.generics = map(this.exec.getTypeParameters(), e -> new Generic(e)).readOnly();
+			this.generics = map(this.exec.getTypeParameters(), e -> new Generic(_5)).readOnly();
 		}
 		return this.generics;
 	}
 	public FinalArray<Type<?>> getParamTypes() {
 		if (this.paramTypes == null) {
 			//TODO
-			Object o = map(this.exec.getParameterTypes(), e -> typeby(e));
+			Object o = map(this.exec.getParameterTypes(), e -> typeby(_5));
 		}
 		return null;
 	}

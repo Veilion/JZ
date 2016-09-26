@@ -12,7 +12,7 @@ public abstract class AbstractStream<T> extends Base implements Stream<T>
 	@Override
 	public boolean includes(Predicate<T> predicate) {
 		for(T value : this) {
-			if(predicate.invoke(value)) {
+			if(predicate.call(value)) {
 				return true;
 			}
 		}
@@ -21,7 +21,7 @@ public abstract class AbstractStream<T> extends Base implements Stream<T>
 	@Override
 	public boolean matches(Predicate<T> predicate) {
 		for(T value : this) {
-			if(!predicate.invoke(value)) {
+			if(!predicate.call(value)) {
 				return false;
 			}
 		}
@@ -31,7 +31,7 @@ public abstract class AbstractStream<T> extends Base implements Stream<T>
 	public int amountWhere(Predicate<T> predicate) {
 		int amount = 0;
 		for(T value : this) {
-			if(predicate.invoke(value)) {
+			if(predicate.call(value)) {
 				++amount;
 			}
 		}
@@ -41,14 +41,14 @@ public abstract class AbstractStream<T> extends Base implements Stream<T>
 	@Override
 	public void each(Consumer<T> consumer) {
 		for(T value : this) {
-			consumer.invoke(value);
+			consumer.call(value);
 		}
 	}
 	@Override
 	public Array<T> filter(Predicate<T> predicate) {
 		Array<T> results = array();
 		for(T value : this) {
-			if(predicate.invoke(value)) {
+			if(predicate.call(value)) {
 				results.add(value);
 			}
 		}
@@ -58,7 +58,7 @@ public abstract class AbstractStream<T> extends Base implements Stream<T>
 	public <R> Array<R> map(Producer<T, R> producer) {
 		Array<R> results = empty(this.count());
 		for(T value : this) {
-			results.add(producer.invoke(value));
+			results.add(producer.call(value));
 		}
 		return results;
 	}

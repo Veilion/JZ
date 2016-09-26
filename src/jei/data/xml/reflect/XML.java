@@ -12,7 +12,7 @@ import jei.types.Type;
 public class XML extends Base
 {
 	public static <T> T read(String file, Class<T> clazz) {
-		return read(file, typeby(clazz));
+		return read(file, typeBy(clazz));
 	}
 	public static <T> T read(String file, Type<T> type) {
 		File xml = new File(file);

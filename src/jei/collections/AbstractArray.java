@@ -84,7 +84,7 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 	public boolean setWhere(T value, Predicate<T> predicate) {
 		boolean found = false;
 		for(int i = 0; i < this.count(); ++i) {
-			if(predicate.invoke(this.get(i))) {
+			if(predicate.call(this.get(i))) {
 				this.set(i, value);
 				found = true;
 			}
@@ -129,7 +129,7 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 	public boolean removeWhere(Predicate<T> predicate) {
 		boolean found = false;
 		for(int i = this.count() - 1; i >= 0; --i) {
-			if(predicate.invoke(this.get(i))) {
+			if(predicate.call(this.get(i))) {
 				this.remove(i);
 			}
 		}
@@ -147,7 +147,7 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 	@Override
 	public Option<Integer> firstIndexWhere(Predicate<T> predicate) {
 		for(int i = 0; i < this.count(); ++i) {
-			if(predicate.invoke(this.get(i))) {
+			if(predicate.call(this.get(i))) {
 				return some(i);
 			}
 		}
@@ -165,7 +165,7 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 	@Override
 	public Option<Integer> lastIndexWhere(Predicate<T> predicate) {
 		for(int i = this.count() - 1; i >= 0; --i) {
-			if(predicate.invoke(this.get(i))) {
+			if(predicate.call(this.get(i))) {
 				return some(i);
 			}
 		}
@@ -176,7 +176,7 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 	public Option<T> firstWhere(Predicate<T> predicate) {
 		for(int i = 0; i < this.count(); ++i) {
 			T value = this.get(i);
-			if(predicate.invoke(value)) {
+			if(predicate.call(value)) {
 				return some(value);
 			}
 		}
@@ -186,7 +186,7 @@ public abstract class AbstractArray<T> extends AbstractStream<T> implements Arra
 	public Option<T> lastWhere(Predicate<T> predicate) {
 		for(int i = this.count() - 1; i >= 0; --i) {
 			T value = this.get(i);
-			if(predicate.invoke(value)) {
+			if(predicate.call(value)) {
 				return some(value);
 			}
 		}

@@ -1,7 +1,19 @@
 package jei.functional;
 
+import jei.StandardLibraryContender;
+
 @FunctionalInterface
-public interface Supplier<T> 
+public interface Supplier<R> extends Trapable<Sequence, R>, StandardLibraryContender<java.util.function.Supplier<R>>
 {
-	T invoke();
+	R call();
+	
+	@Override
+	default java.util.function.Supplier<R> java() {
+		return this::call;
+	}
+
+	@Override
+	default Sequence trap(Consumer<? super R> consumer) {
+		return () -> consumer.call(this.call());
+	}
 }

@@ -132,10 +132,10 @@ public class Field extends Base implements Accessable, Note.Streamable
 	}
 
 	public Type<?> getType() {
-		return typeby(this.field.getType());
+		return typeBy(this.field.getType());
 	}
 	public Type<?> getDeclaringType() {
-		return typeby(this.field.getDeclaringClass());
+		return typeBy(this.field.getDeclaringClass());
 	}
 	
 	@Override
@@ -227,7 +227,7 @@ public class Field extends Base implements Accessable, Note.Streamable
 			fields;
 		
 		Stream(java.lang.reflect.Field[] fields) {
-			this.fields = map(fields, e -> new Field(e)).toNativeArray(Field.class);
+			this.fields = map(fields, e -> new Field(_5)).toNativeArray(Field.class);
 		}
 
 		public Field withName(String name) throws UndefinedEntryException {

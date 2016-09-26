@@ -38,13 +38,13 @@ public final class Option<T> extends Base
 	}
 	public <O> Option<O> map(Producer<? super T, O> producer) {
 		if(this.value != null) {
-			return some(producer.invoke(this.value));
+			return some(producer.call(this.value));
 		}
 		return none();
 	}
 	public <O> Option<O> flatMap(Producer<? super T, Option<O>> producer) {
 		if(this.value != null) {
-			return producer.invoke(this.value);
+			return producer.call(this.value);
 		}
 		return none();
 	}
@@ -59,7 +59,7 @@ public final class Option<T> extends Base
 	}
 	public T orGet(Supplier<@NonNull T> supplier) {
 		if(this.value == null) {
-			return nonNull(supplier.invoke());
+			return nonNull(supplier.call());
 		}
 		return this.value;
 	}
@@ -71,9 +71,9 @@ public final class Option<T> extends Base
 	}
 	public <O> O getOr(Producer<? super @NonNull T, O> producer, Supplier<@NonNull O> fallback) {
 		if(this.value == null) {
-			return nonNull(fallback.invoke());
+			return nonNull(fallback.call());
 		}
-		return nonNull(producer.invoke(this.value));
+		return nonNull(producer.call(this.value));
 	}
 	
 	@Override
@@ -101,6 +101,6 @@ public final class Option<T> extends Base
 	}
 	@Override
 	public String toString() {
-		return this.isset() ? "Option.Some(" + this.value + ")" : "Option.None";
+		return format("({0})?", this.value);
 	}
 }

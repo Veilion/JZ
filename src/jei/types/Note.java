@@ -48,7 +48,7 @@ public enum Note
 		}
 		public boolean hasWhere(Predicate<Annotation> predicate) {
 			for(Annotation note : this.notes) {
-				if(predicate.invoke(note)) {
+				if(predicate.call(note)) {
 					return true;
 				}
 			}
@@ -86,7 +86,7 @@ public enum Note
 		public Array<Annotation> where(Predicate<Annotation> predicate) {
 			Array<Annotation> result = array();
 			for(Annotation note : this.notes) {
-				if(predicate.invoke(note)) {
+				if(predicate.call(note)) {
 					result.add(note);
 				}
 			}
@@ -94,7 +94,7 @@ public enum Note
 		}
 		public Option<Annotation> oneWhere(Predicate<Annotation> predicate) {
 			for(Annotation note : this.notes) {
-				if(predicate.invoke(note)) {
+				if(predicate.call(note)) {
 					return some(note);
 				}
 			}

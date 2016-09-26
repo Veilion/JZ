@@ -18,7 +18,7 @@ class DefaultSet<T> extends AbstractSet<T>
 	}
 	@Override
 	public boolean removeWhere(Predicate<T> predicate) {
-		return this.table.removeWhere(entry -> predicate.invoke(entry.getKey()));
+		return this.table.removeWhere(entry -> predicate.call(entry.getKey()));
 	}
 	@Override
 	public void clear() {

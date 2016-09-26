@@ -1,17 +1,42 @@
 package jei.functional;
 
+import jei.StandardLibraryContender;
+
 @FunctionalInterface
-public interface Predicate<T> 
+public interface Predicate<A> extends Trapable<Consumer<A>, Boolean>, StandardLibraryContender<java.util.function.Predicate<A>>
 {
-	boolean invoke(T value);
+	public static final Predicate<Object>
+		TRUE = it -> true,
+		FALSE = it -> false
+	;
 	
-	default Predicate<T> and(Predicate<T> predicate) {
-		return e -> this.invoke(e) && predicate.invoke(e);
+	boolean call(A it);
+
+	@Override
+	default java.util.function.Predicate<A> java() {
+		return this::call;
 	}
-	default Predicate<T> or(Predicate<T> predicate) {
-		return e -> this.invoke(e) || predicate.invoke(e);
+	
+	default Predicate<A> and(Predicate<? super A> predicate) {
+		return it -> this.call(it) && predicate.call(it);
 	}
-	default Predicate<T> not() {
-		return e -> !this.invoke(e);
+	default Predicate<A> or(Predicate<? super A> predicate) {
+		return it -> this.call(it) || predicate.call(it);
+	}
+	default Predicate<A> not() {
+		return it -> ! this.call(it);
+	}
+	
+	@Override
+	default Consumer<A> trap(Consumer<? super Boolean> consumer) {
+		return it -> consumer.call(this.call(it));
+	}
+	
+	default Supplier<Boolean> link(Supplier<? extends A> supplier) {
+		return () -> this.call(supplier.call());
+	}
+	
+	default Supplier<Boolean> bind(A value) {
+		return () -> this.call(value);
 	}
 }

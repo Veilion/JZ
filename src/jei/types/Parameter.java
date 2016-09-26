@@ -122,7 +122,7 @@ public class Parameter extends Base implements Note.Streamable
 			string = null;
 		
 		Stream(Invokable declaringInvokable, java.lang.reflect.Parameter[] params) {
-			this.params = map(params, e -> new Parameter(declaringInvokable, e)).toNativeArray(Parameter.class);
+			this.params = map(params, e -> new Parameter(declaringInvokable, _5)).toNativeArray(Parameter.class);
 		}
 		
 		public boolean has(String name) {

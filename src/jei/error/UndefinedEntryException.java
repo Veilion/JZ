@@ -1,6 +1,6 @@
 package jei.error;
 
-import jei.$;
+import jei.Jei;
 
 public class UndefinedEntryException extends JeiException
 {
@@ -10,7 +10,7 @@ public class UndefinedEntryException extends JeiException
 		super();
 	}
 	public UndefinedEntryException(int index, int min, int max) {
-		super($.format("index: {0}, bounds: {1} to {2}", index, min, max));
+		super(Jei.format("index: {0}, bounds: {1} to {2}", index, min, max));
 	}
 	public UndefinedEntryException(String message, Throwable cause) {
 		super(message, cause);

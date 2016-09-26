@@ -31,7 +31,7 @@ public class JSON extends Base
 			}
 			return builder.append(']').toString();
 		}
-		return typeof(object).getQualifiedName() + "@" + object.hashCode();
+		return typeOf(object).getQualifiedName() + "@" + object.hashCode();
 	}
 	
 	public JSON() {

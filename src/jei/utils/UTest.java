@@ -11,7 +11,7 @@ public abstract class UTest extends StaticBase
 		
 		long start = System.nanoTime();
 		for(int i = 0; i < tries; ++i) {
-			sequence.invoke();
+			sequence.call();
 		}
 		return (System.nanoTime() - start) / tries;
 	}
